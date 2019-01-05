@@ -4,15 +4,15 @@ use std::collections::HashMap;
 pub struct KubeSecret {
     api_version: String,
     kind: String,
-    metadata: MetaData,
+    pub metadata: MetaData,
     resource_type: String,
     data: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-struct MetaData {
-    name: String,
-    namespace: String,
+pub struct MetaData {
+    pub name: String,
+    pub namespace: String,
 }
 
 impl KubeSecret {

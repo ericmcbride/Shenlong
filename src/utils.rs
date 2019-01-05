@@ -15,7 +15,7 @@ fn create_secret_map(secrets: &Vec<String>) -> HashMap<String, String> {
     let mut secret_map = HashMap::new();
 
     for secret in secrets {
-        let mut split_vect: Vec<&str> = secret.split(":").collect();
+        let split_vect: Vec<&str> = secret.split(":").collect();
         secret_map.insert(split_vect[0].to_string(), split_vect[1].to_string());
     }
 
