@@ -35,8 +35,6 @@ pub fn set_args(args: &ArgMatches) -> Result<kube::KubeSecret, Box<::std::error:
         let delete = args.value_of("DELETE").unwrap();
         if delete == "true" {
             delete_bool = true
-        } else {
-            delete_bool = false
         }
     }
 
