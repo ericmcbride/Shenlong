@@ -5,6 +5,7 @@ pub struct KubeSecret {
     api_version: String,
     kind: String,
     pub metadata: MetaData,
+    pub delete: bool,
     resource_type: String,
     data: HashMap<String, String>,
 }
@@ -16,11 +17,17 @@ pub struct MetaData {
 }
 
 impl KubeSecret {
-    pub fn new(name: String, namespace: String, secrets: HashMap<String, String>) -> KubeSecret {
+    pub fn new(
+        name: String,
+        namespace: String,
+        delete: bool,
+        secrets: HashMap<String, String>,
+    ) -> KubeSecret {
         KubeSecret {
             api_version: "v1".to_string(),
             kind: "Secret".to_string(),
             metadata: MetaData { name, namespace },
+            delete: delete,
             resource_type: "Opaque".to_string(),
             data: KubeSecret::encode_secrets(&secrets),
         }

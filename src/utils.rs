@@ -30,9 +30,20 @@ pub fn set_args(args: &ArgMatches) -> Result<kube::KubeSecret, Box<::std::error:
     let owned_secrets = str_to_string(new_secrets);
     let secret_map = create_secret_map(&owned_secrets);
 
+    let mut delete_bool = false;
+    if let Some(_) = args.value_of("DELETE") {
+        let delete = args.value_of("DELETE").unwrap();
+        if delete == "true" {
+            delete_bool = true
+        } else {
+            delete_bool = false
+        }
+    }
+
     Ok(kube::KubeSecret::new(
         name.to_string(),
         namespace.to_string(),
+        delete_bool,
         secret_map,
     ))
 }

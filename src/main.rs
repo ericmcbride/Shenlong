@@ -26,6 +26,7 @@ fn run() -> Result<kube::KubeSecret, Box<::std::error::Error>> {
         (about: "Kube Secret Updater")
         (@arg NAMESPACE: -n --namespace +required +takes_value "Namespace for secrets")
         (@arg NAME: --name +required +takes_value "Secrets File Name")
+        (@arg DELETE: -d --delete +takes_value "Delete Kube Secret (true or false)")
         (@arg SECRET: ... --secret +required +takes_value "Key:Value secrets (multiple can be set")
     )
     .get_matches();
@@ -33,7 +34,10 @@ fn run() -> Result<kube::KubeSecret, Box<::std::error::Error>> {
     let kube_secrets = utils::set_args(&args);
     match kube_secrets {
         Ok(secrets) => {
-            delete_secrets(&secrets)?;
+            if secrets.delete {
+                delete_secrets(&secrets)?;
+                return Ok(secrets);
+            }
             Ok(secrets)
         }
         Err(secrets) => Err(secrets),
