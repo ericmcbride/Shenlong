@@ -11,7 +11,7 @@ mod utils;
 fn main() {
     match run() {
         Ok(secrets) => {
-            secrets.gen_yaml();
+            println!("{}", secrets.gen_yaml());
         }
         Err(secrets) => {
             eprintln!("Error {}", secrets);
