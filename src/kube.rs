@@ -14,13 +14,13 @@ pub struct KubeSecret {
 #[derive(Serialize, Deserialize, Debug)]
 struct MetaData {
     name: String,
-    namespace: Option<String>,
+    namespace: String,
 }
 
 impl KubeSecret {
     pub fn new(
         name: String,
-        namespace: Option<String>,
+        namespace: String,
         secrets: HashMap<String, String>,
     ) -> KubeSecret {
         KubeSecret {
@@ -41,7 +41,7 @@ impl KubeSecret {
         hashed_secrets
     }
 
-    pub fn yaml(&self) -> String{
+    pub fn yaml(&self) -> String {
         serde_yaml::to_string(&self).unwrap()
     }
 }

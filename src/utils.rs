@@ -25,19 +25,14 @@ fn create_secret_map(secrets: &Vec<String>) -> HashMap<String, String> {
 pub fn set_args(args: &ArgMatches) -> Result<kube::KubeSecret, Box<::std::error::Error>> {
     let namespace = args.value_of("NAMESPACE").unwrap();
     let name = args.value_of("NAME").unwrap();
-    let mut secrets = HashMap::new();
 
-    secrets = if let Some(_) = args.values_of("SECRET") {
-        let new_secrets = args.values_of("SECRET").unwrap().collect();
-        let owned_secrets = str_to_string(new_secrets);
-        create_secret_map(&owned_secrets)
-    } else {
-        secrets
-    };
+    let new_secrets = args.values_of("SECRET").unwrap().collect();
+    let owned_secrets = str_to_string(new_secrets);
+    let secret_map = create_secret_map(&owned_secrets);
 
     Ok(kube::KubeSecret::new(
         name.to_string(),
-        Some(namespace.to_string()),
-        secrets,
+        namespace.to_string(),
+        secret_map,
     ))
 }
