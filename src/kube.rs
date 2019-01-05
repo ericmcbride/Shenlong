@@ -1,6 +1,4 @@
 use std::collections::HashMap;
-extern crate serde;
-extern crate serde_yaml;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct KubeSecret {
@@ -18,11 +16,7 @@ struct MetaData {
 }
 
 impl KubeSecret {
-    pub fn new(
-        name: String,
-        namespace: String,
-        secrets: HashMap<String, String>,
-    ) -> KubeSecret {
+    pub fn new(name: String, namespace: String, secrets: HashMap<String, String>) -> KubeSecret {
         KubeSecret {
             api_version: "v1".to_string(),
             kind: "Secret".to_string(),
@@ -41,7 +35,7 @@ impl KubeSecret {
         hashed_secrets
     }
 
-    pub fn yaml(&self) -> String {
+    pub fn gen_yaml(&self) -> String {
         serde_yaml::to_string(&self).unwrap()
     }
 }

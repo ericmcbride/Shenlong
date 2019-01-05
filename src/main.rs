@@ -4,6 +4,7 @@ extern crate clap;
 extern crate serde_derive;
 
 use std::collections::HashMap;
+use std::process::Command;
 
 mod kube;
 mod utils;
@@ -28,8 +29,11 @@ fn run() -> Result<(), Box<::std::error::Error>> {
     )
     .get_matches();
 
-    let options = utils::set_args(&args);
-    Ok(())
+    let kube_secrets = utils::set_args(&args);
+    match kube_secrets {
+        Ok(_) => update_secrets(),
+        Err(_) => Ok(()),
+    }
 }
 
 fn login_eks() -> Result<(), Box<::std::error::Error>> {
@@ -37,5 +41,10 @@ fn login_eks() -> Result<(), Box<::std::error::Error>> {
 }
 
 fn update_secrets() -> Result<(), Box<::std::error::Error>> {
+    let delete_cmd = Command::new("kubectl")
+        .args(&["delete secret", ""])
+        .output();
+    println!("Kubectl Delete Output {:?}", delete_cmd);
+
     Ok(())
 }
