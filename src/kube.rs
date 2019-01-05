@@ -2,10 +2,15 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct KubeSecret {
+    #[serde(rename="apiVersion")]
     api_version: String,
     kind: String,
     pub metadata: MetaData,
+
+    #[serde(skip_serializing)]
     pub delete: bool,
+
+    #[serde(rename="type")]
     resource_type: String,
     data: HashMap<String, String>,
 }
