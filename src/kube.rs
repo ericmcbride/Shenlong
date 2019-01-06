@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct KubeSecret {
-    #[serde(rename="apiVersion")]
+    #[serde(rename = "apiVersion")]
     api_version: String,
     kind: String,
     pub metadata: MetaData,
@@ -10,7 +10,7 @@ pub struct KubeSecret {
     #[serde(skip_serializing)]
     pub delete: bool,
 
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     resource_type: String,
     data: HashMap<String, String>,
 }
@@ -60,12 +60,12 @@ mod tests {
     fn test_kubesecret() {
         let name = "name-boi".to_owned();
         let namespace = "dong-boi".to_owned();
-        let secret = [
-            ("matt_pike".to_owned(), "god".to_owned()),
-        ].iter().cloned().collect();
+        let secret = [("matt_pike".to_owned(), "god".to_owned())]
+            .iter()
+            .cloned()
+            .collect();
 
-        let expected =
-"---
+        let expected = "---
 apiVersion: v1
 kind: Secret
 metadata:
@@ -73,7 +73,11 @@ metadata:
   namespace: dong-boi
 type: Opaque
 data:
-  matt_pike: Z29k".to_owned();
-        assert_eq!(expected, KubeSecret::new(name, namespace, false, secret).gen_yaml());
+  matt_pike: Z29k"
+            .to_owned();
+        assert_eq!(
+            expected,
+            KubeSecret::new(name, namespace, false, secret).gen_yaml()
+        );
     }
 }
