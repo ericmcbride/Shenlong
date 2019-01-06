@@ -51,3 +51,29 @@ impl KubeSecret {
         serde_yaml::to_string(&self).unwrap()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::KubeSecret;
+
+    #[test]
+    fn test_kubesecret() {
+        let name = "name-boi".to_owned();
+        let namespace = "dong-boi".to_owned();
+        let secret = [
+            ("matt_pike".to_owned(), "god".to_owned()),
+        ].iter().cloned().collect();
+
+        let expected =
+"---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: name-boi
+  namespace: dong-boi
+type: Opaque
+data:
+  matt_pike: Z29k".to_owned();
+        assert_eq!(expected, KubeSecret::new(name, namespace, false, secret).gen_yaml());
+    }
+}
