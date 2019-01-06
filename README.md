@@ -1,6 +1,10 @@
 # Shenlong
 Shenlong is a Rust CLI Tool for Kubernetes Secret files. Shenlong allows the user to not create a file, and instead allows for the piping of the yaml file to the kube apply function.  
-This allows for no weird SED injections of template files in the build process, or storing secret files in version control or secret files on the server.  Instead the user gets it on the fly.
+
+This allows for no weird SED injections of template files in the build process, 
+or storing secret files in version control or secret files on the server.  
+Instead the user gets it on the fly.
+
 ![Shenlong](shenlong.jpg?raw=true "Shenlong")
 
 ## Installation
