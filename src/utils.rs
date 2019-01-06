@@ -45,3 +45,29 @@ pub fn set_args(args: &ArgMatches) -> Result<kube::KubeSecret, Box<::std::error:
         secret_map,
     ))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::create_secret_map;
+    use super::str_to_string;
+
+    #[test]
+    fn test_create_secret_map() {
+        let mut test_vec = Vec::new();
+        test_vec.push("foo:boi".to_string());
+
+        let got = create_secret_map(&test_vec);
+        assert_eq!("boi".to_string(), got["foo"]);
+        assert_eq!(got.contains_key("foo"), true);
+    }
+
+    #[test]
+    fn test_str_to_string() {
+        let mut test_vec = Vec::new();
+        test_vec.push("foo");
+
+        let got = str_to_string(test_vec);
+        assert_eq!("foo".to_string(), got[0])
+    }
+
+}
