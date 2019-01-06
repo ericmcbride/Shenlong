@@ -62,7 +62,8 @@ dont pipe shenlong to the kubectl apply -f - command, you will just get a
 representation of the yaml file printed out to stdout.
 
 ## The Future
-    I plan on adding Cloud Service Support, such as passing in --cloud=AWS.  This
+
+I plan on adding Cloud Service Support, such as passing in --cloud=AWS.  This
 way Shenlong would be available to deploy secrets from CI services such as CIRCLE or
 TRAVIS.  If you are running in the machine executor, and you are trying to talk
 to AWS EKS, you may have to use the heptio-IAM-AUTHENTICATOR to do so.  I plan
