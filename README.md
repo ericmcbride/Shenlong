@@ -6,11 +6,11 @@ Shenlong is a Rust CLI Tool for Kubernetes Secret files. Shenlong allows the use
 ## Installation
 As of right now, Shenlong is NOT part of cargo.  Its on my todo list.  Right now just do cargo build in the root of the the project, and then access the shenlong in target/debug/shenlong
 ```bash
-./target/debug/shenlong --namespace my-kube-namespace --name my-kube-secrets --secret FOO:BOI
+./target/debug/shenlong --namespace my-kube-namespace --name my-kube-secrets --secret FOO:BOI | kubectl apply -f -
 ```
 
 ## CLI Arguments
-```python
+```
 shenlong 1.0
 Eric McBride <ericmcbridedeveloper@gmail.com>
 Kube Secret Updater
@@ -34,7 +34,7 @@ Shenlong requires a name, namespace, and secret.  You can have multiple secrets.
 
 ## Example Usage
 ```
-shenlong [master●] % ./target/debug/shenlong --namespace=test-space --secret pilot:Heero --secret gundam:Wing --name=my-gundam-secret
+shenlong [master●] % ./target/debug/shenlong --namespace=test-space --secret pilot:Heero --secret gundam:Wing --name=my-gundam-secret | kubectl apply -f -
 ```
 
 ```
